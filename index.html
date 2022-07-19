@@ -54,74 +54,112 @@
                             <a href="#register" class="nav-link active" data-toggle="tab">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#login" class="nav-link" data-toggle="tab">Login</a>
+                            <a  href="#login" class="nav-link" data-toggle="tab">Login</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="register" class="tab-pane active pt-2">
-                            
-                            <!-- register portion coding start -->
+                        <!-- register portion coding start -->
+                        
+                        <div id="register" class="tab-pane active pt-2" style="overflow-x: hidden;">
 
-                            <form>
+                            <form id="register-form" class="animate__animated animate__slideInLeft animate__faster">
                                 <div class="input-group mt-3 ">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter school name here</span>
                                     </div>
-                                    <input type="text" class="form-control">
+                                    <input id="school-name" type="text" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter tag line here</span>
                                     </div>
-                                    <input type="text" class="form-control">
+                                    <input id="tag-line" type="text" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter email id here</span>
                                     </div>
-                                    <input type="email" class="form-control">
+                                    <input id="email" type="email" class="form-control">
+                                </div>
+
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend bg-primary">
+                                        <span class="input-group-text bg-primary border-0 text-light font-weight-bold">Enter password here</span>
+                                    </div>
+                                    <input type="password" id="password" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter website name here</span>
                                     </div>
-                                    <input type="website" class="form-control">
+                                    <input id="website" type="website" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter mobile number</span>
                                     </div>
-                                    <input type="number" class="form-control">
+                                    <input id="mobile" type="number" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter mobile number</span>
                                     </div>
-                                    <input type="number" class="form-control">
+                                    <input id="phone" type="number" class="form-control">
                                 </div>
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
                                         <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter mobile number</span>
                                     </div>
-                                    <textarea class="form-control"></textarea>
+                                    <textarea id="address" class="form-control"></textarea>
                                 </div>
 
-                                <div class="text-right mt-4">
+                                <div class="alert w-75 float-left mt-3 d-none" id="message">
+                                    <!-- <i class="fa fa-close close p-1" data-dismiss="alert"></i> -->
+                                </div>
+
+                                <div class="text-right mt-4 ">
                                     <button class="btn btn-warning">Resiter form</button>
                                 </div>
                             </form>
 
-                            <!-- register portion coding end -->
                         </div>
-                        <div id="login" class="tab-pane">
-                            this is login
+                        <!-- register portion coding end -->
+
+                        <!-- login portion coding start -->
+                        
+                        <div id="login" class="tab-pane pt-2" style="overflow-x: hidden;">
+                            <form class="animate__animated animate__slideInRight animate__faster" id="login-form">
+
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend bg-primary">
+                                        <span class="input-group-text bg-primary border-0 text-light font-weight-bold">Username</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="username">
+                                </div>
+                                
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend bg-primary">
+                                        <span class="input-group-text bg-primary border-0 text-light font-weight-bold">Password</span>
+                                    </div>
+                                    <input type="password" class="form-control" id="login-password">
+                                </div>
+
+                                <div class="alert d-none mt-3 float-left w-75" id="login-alert">
+                                </div>
+
+                                <div class="text-right mt-3">
+                                    <button class="btn btn-warning" type="submit">Login now</button>
+                                </div>
+                            </form>
                         </div>
+                        
+                        <!-- login portion coding end -->
                     </div>
                     
                 </div>
