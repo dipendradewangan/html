@@ -114,13 +114,15 @@
 
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend bg-primary">
-                                        <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter mobile number</span>
+                                        <span class="input-group-text bg-primary border-0 font-weight-bold text-light">Enter address</span>
                                     </div>
                                     <textarea id="address" class="form-control"></textarea>
                                 </div>
 
                                 <div class="alert w-75 float-left mt-3 d-none" id="message">
                                     <!-- <i class="fa fa-close close p-1" data-dismiss="alert"></i> -->
+                                    
+                                    
                                 </div>
 
                                 <div class="text-right mt-4 ">
@@ -151,6 +153,7 @@
                                 </div>
 
                                 <div class="alert d-none mt-3 float-left w-75" id="login-alert">
+                                    
                                 </div>
 
                                 <div class="text-right mt-3">
@@ -170,6 +173,27 @@
     </div>
 
     <!-- js file for this page adding -->
+
+    <!-- delete confirm model coding start -->
+    <div class="modal" id="confirm">
+        <div class="modal-dialog">
+            <div class="alert alert-success d-none delete-success-notice"><b>Delete success ! </b>Now you can register the new school</div>
+            <div class="modal-content delete-modal">
+                <div class="modal-header">
+                    <h3 text-center>Delete Notice</h3>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete previous record!
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="db-delete-btn">Delete</button>
+                    <button class="btn btn-primary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- delete confirm model coding end -->
 
     <script src="js/main.js"></script>
 </body>
