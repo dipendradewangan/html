@@ -6,6 +6,24 @@ window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || 
 
 window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
+
+
+// login or register page opening coding start
+
+let db = window.indexedDB.databases();
+db.then(function (db_list) {
+    if (db_list.length != 0) {
+        $("#login-link").click();
+    }
+    else {
+        $("#register-link").click();
+    }
+});
+
+// login or register page opening coding end
+
+
+
 if (!window.indexedDB) {
     document.write("Please update your browser");
 }
@@ -22,41 +40,37 @@ else {
                     register();
                 }
                 else {
-                    // alert("please purchase multi version");
                     $("#message").removeClass("d-none");
-                    $("#message").addClass("alert-danger d-flex align-items-center justify-content-between");
+                    $("#message").addClass("alert-warning");
                     $("#message").html(`
-                    <div class="w-100">
-                        <b>Registration failed !</b>
-                        <a href="https://wapinstitute.com"> please purchase multi version....</a>
-                        <i class="fa fa-trash ml-2" data-toggle="tooltip" id="tooltip" title="To manage another school please delete currently used school record"></i>
+                        <div style="width: 90%; float: left">
+                            <b>Registration failed !</b> 
+                            <a href='https://wapinstitute.com'>Please purchase multi version</a> 
+                            <i class='fa fa-trash ml-4' data-toggle='tooltip' id='tooltip' style='cursor:pointer'  title='To manage another school, please delete currently school record!'></i>
                         </div>
-                        <i id="register-close-btn" class="fa fa-close close" data-dismiss="alert"></i>
-                        `);
+                        <i class="fa fa-close close pt-1" data-dismiss="alert"></i>
+                    `);
                     $("#tooltip").tooltip();
-                    $("#tooltip").click(function(){
+                    $("#tooltip").click(function () {
                         $("#confirm").modal();
-                        $("#db-delete-btn").click(function(){
+                        $("#db-delete-btn").click(function () {
                             let all_db = window.indexedDB.databases();
-                            all_db.then(function(db_list){
-                                let varify_delete = window.indexedDB.deleteDatabase(db_list[0].name);
-                                varify_delete.onsuccess = function(){
-                                    $("#register-form").trigger("reset");
-                                    $(".delete-success-notice").removeClass("d-none");
-                                    $(".delete-modal").html("");
-                                    $("#message").html("")
-                                    // $("#message").removeClass("alert-danger");
+                            all_db.then(function (all_db_list) {
+                                let db_delete_varify = window.indexedDB.deleteDatabase(all_db_list[0].name);
+                                db_delete_varify.onsuccess = function () {
+                                    // $("#message").removeClass("alert-warning");
                                     $("#message").addClass("d-none");
+                                    $(".delete-modal").html("");
+                                    $(".delete-success-notice").removeClass("d-none");
+                                    $("#register-form").trigger("reset");
+                                    setTimeout(() => {
+                                        window.location = location.href;
+                                    }, 2000)
                                 }
                             });
                         });
-                    });    
-                    $("#tooltip").css("cursor","pointer");    
-                    $("#register-close-btn").click(function () {
-                        $("#message").removeClass("alert-danger d-flex align-items-center justify-content-between");
-                        $("#message").addClass("d-none");
-                        $("#register-form").trigger("reset");
                     });
+
 
                 }
             });
@@ -110,7 +124,7 @@ else {
         }
     });
 
-    // register coding end
+    // register coding end`
 
 }
 

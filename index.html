@@ -51,16 +51,16 @@
                 <div class="col-9">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a href="#register" class="nav-link active" data-toggle="tab">Register</a>
+                            <a href="#register" class="nav-link active" id="register-link" data-toggle="tab">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a  href="#login" class="nav-link" data-toggle="tab">Login</a>
+                            <a  href="#login" class="nav-link" id="login-link" data-toggle="tab">Login</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <!-- register portion coding start -->
                         
-                        <div id="register" class="tab-pane active pt-2" style="overflow-x: hidden;">
+                        <div id="register" class="tab-pane active pt-2" id="register-content" style="overflow-x: hidden;">
 
                             <form id="register-form" class="animate__animated animate__slideInLeft animate__faster">
                                 <div class="input-group mt-3 ">
@@ -135,7 +135,7 @@
 
                         <!-- login portion coding start -->
                         
-                        <div id="login" class="tab-pane pt-2" style="overflow-x: hidden;">
+                        <div id="login" class="tab-pane pt-2" id="login-content" style="overflow-x: hidden;">
                             <form class="animate__animated animate__slideInRight animate__faster" id="login-form">
 
                                 <div class="input-group mt-3">
@@ -163,6 +163,8 @@
                         </div>
                         
                         <!-- login portion coding end -->
+
+                        
                     </div>
                     
                 </div>
