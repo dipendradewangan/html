@@ -84,7 +84,35 @@ $(document).ready(function(){
                 for(i=0;i <keys.length;i++){
                     let key_data = access.get(keys[i]);
                     key_data.onsuccess = function(){
-                        console.log(this.result);
+                        let fee = this.result;
+                        let ul = document.createElement("UL");
+                        ul.className = "nav nav-tabs";
+                        let li = document.createElement("LI");
+                        li.className = "nav-item";
+                        let a = document.createElement("A");
+                        a.className = "nav-link active";
+                        a.href = "#";
+                        a.innerHTML = "CLASS - "+fee.class_name;
+                        li.append(a);
+                        ul.append(li);
+                        $("#show-fee").append(ul);
+                        let table = document.createElement("TABLE");
+                        table.className = "table text-center";
+                        let tr_for_th = document.createElement("TR");
+                        let tr_for_td = document.createElement("TR");
+                        for(j=0; j<fee.course_name.length; j++){
+                            let th = document.createElement("TH");
+                            th.innerHTML = fee.course_name[j];
+                            tr_for_th.append(th);
+                        }
+                        let th_for_edit = document.createElement("TH");
+                        th_for_edit.innerHTML = "Edit";
+                        tr_for_th.append(th_for_edit);
+                        let th_for_delete = document.createElement("TH");
+                        th_for_delete.innerHTML = "Delete";
+                        tr_for_th.append(th_for_delete);
+                        table.append(tr_for_th);
+                        $("#show-fee").append(table);
                     }
                 }
             }
