@@ -71,6 +71,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#check-fee-btn").click(function(){
+        $("#show-fee").html("");
         $("#fee-modal").modal();
         let db_name = sessionStorage.getItem("db_name");
         let database = window.indexedDB.open(db_name);
@@ -97,21 +98,51 @@ $(document).ready(function(){
                         ul.append(li);
                         $("#show-fee").append(ul);
                         let table = document.createElement("TABLE");
-                        table.className = "table text-center";
+                        table.className = "table text-center border-left border-right border-bottom";
                         let tr_for_th = document.createElement("TR");
                         let tr_for_td = document.createElement("TR");
+
+                        // let start code for course name dynamically show in webpage
+
                         for(j=0; j<fee.course_name.length; j++){
                             let th = document.createElement("TH");
+                            th.className = "border-0";
                             th.innerHTML = fee.course_name[j];
                             tr_for_th.append(th);
                         }
+
                         let th_for_edit = document.createElement("TH");
+                        th_for_edit.className ="border-0";
                         th_for_edit.innerHTML = "Edit";
                         tr_for_th.append(th_for_edit);
+                        
                         let th_for_delete = document.createElement("TH");
+                        th_for_delete.className ="border-0";
                         th_for_delete.innerHTML = "Delete";
                         tr_for_th.append(th_for_delete);
                         table.append(tr_for_th);
+
+                        
+                        // let start code for course fee dynamically show in webpage
+                        
+                        for(j=0; j<fee.course_fee.length; j++){
+                            let td = document.createElement("TD");
+                            td.className = "border-0";
+                            td.innerHTML = fee.course_fee[j];
+                            tr_for_td.append(td);
+                        }
+
+                        let td_for_edit_icon = document.createElement("TD");
+                        td_for_edit_icon.className = "border-0";
+                        td_for_edit_icon.innerHTML= "<i class='fa fa-edit'></i>";
+                        tr_for_td.append(td_for_edit_icon);
+
+                        let td_for_delete_icon = document.createElement("TD");
+                        td_for_delete_icon.className = "border-0";
+                        td_for_delete_icon.innerHTML = "<i class='fa fa-trash'></i>";
+                        tr_for_td.append(td_for_delete_icon);
+                        table.append(tr_for_td);
+                        
                         $("#show-fee").append(table);
                     }
                 }
