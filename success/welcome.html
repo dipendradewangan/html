@@ -36,24 +36,26 @@
             <div class="col-9 py-4">
                 <div class="row">
                     <div class="col-md-6 bg-white">
+                        <img src="../images/check_fee.png" id="check-fee-btn" alt="check fee btn"  style="width: 150px; position: absolute; top: 0; right: 0">
                         <h5 class="my-4 text-center">SET FEE FOR CLASSES</h5>
-                        <input class="form-control mb-4" placeholder="Enter class name ex : 7">
-                        <div class="input-group mb-4">
-                            <input type="text" name="course-name" placeholder="Hostel fee" class="form-control">
-                            <input type="text" name="course-fee" placeholder="500" class="form-control">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-warning">Monthly</span>
+                        <input class="form-control mb-4 class-name" type="number" placeholder="Enter class name ex : 7">
+                        <div class="add-field-area">
+                            <div class="input-group mb-4">
+                                <input type="text" name="course-name" placeholder="Hostel fee" class="form-control course-name">
+                                <input type="text" name="course-fee" placeholder="500" class="form-control course-fee">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-warning">Monthly</span>
+                                </div>                                
+                                <button class="btn btn-light ml-1 border-1">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                
                             </div>
-                            <button class="btn btn-light ml-1  border-1">
-                                <i class="fa fa-trash"></i>
-                            </button>
-
                         </div>
                         <center>
-
                             <div class="btn-group mb-4">
-                                <button class="btn btn-primary text-light"><i class="fa fa-plus"></i> Add field</button>
-                                <button class="btn btn-danger text-light">Set fee now</button>
+                                <button class="btn btn-primary text-light add-field-btn"><i class="fa fa-plus"></i> Add field</button>
+                                <button class="btn btn-danger text-light set-fee-btn">Set fee now</button>
                             </div>
                         </center>
                     </div>
@@ -62,5 +64,26 @@
             </div>
         </div>
     </div>
+
+    <!-- fee modal coding start -->
+    
+    <div class="modal animate__animated animate__slideInDown animate__faster" id="fee-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>fee header</h5>
+                </div>
+                <div class="modal-body" id="show-fee">
+                    fkjdslkaj
+                </div>
+                <div class="modal-footer">
+                    <h5>fee footer</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- fee modal coding end -->
+    <script src="js/welcome.js"></script>
 </body>
 </html>

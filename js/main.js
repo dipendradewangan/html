@@ -119,6 +119,7 @@ else {
                     address: address
                 };
                 let object = idb.createObjectStore("about_school", { keyPath: "school_name" });
+                idb.createObjectStore("fee",{keyPath:"class_name"});
                 object.add(data);
             }
         }
@@ -144,10 +145,17 @@ $(document).ready(function () {
         let session_login_data = JSON.stringify(login_data);
         sessionStorage.setItem("login", session_login_data);
         if (sessionStorage.getItem("login") != null) {
+
+            // find user from the database coding start
+
             let user_database = window.indexedDB.databases();
             user_database.then(function (pending_obj) {
                 for (i = 0; i < pending_obj.length; i++) {
                     let db_name = pending_obj[i].name;
+
+                    // storing db name into idb detabase
+                    
+                    sessionStorage.setItem("db_name",db_name);
                     let database = window.indexedDB.open(db_name);
                     database.onsuccess = function () {
                         let idb = this.result;
@@ -168,14 +176,14 @@ $(document).ready(function () {
                                         $("#login-alert").removeClass("d-none");
                                         $("#login-alert").addClass("alert-warning");
                                         $("#login-alert").html("<b>Wrong password !</b>");
-
+                                        
                                     }
                                 }
                                 else {
                                     $("#login-alert").removeClass("d-none");
                                     $("#login-alert").addClass("alert-warning");
                                     $("#login-alert").html("<b>User not found !</b>");
-
+                                    
                                 }
                             }
                             else {
@@ -185,6 +193,9 @@ $(document).ready(function () {
                     }
                 }
             });
+
+            // find user from the database coding end
+        
         }
         else {
             $("#login-alert").removeClass("d-none")
