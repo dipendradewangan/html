@@ -166,8 +166,45 @@ $(document).ready(function () {
                                 }
                             }
                         }
-                        
+
                         // delete fee coding end
+
+                        // edit fee coding start
+                        
+                        td_for_edit_icon.onclick = function(){
+                            let table = this.parentElement.parentElement;
+                            let ul = table.previousSibling;
+                            let a = ul.getElementsByTagName("A");
+                            let class_name = a[0].innerHTML.split(" ");
+                            $(".class-name").val(class_name[2]);
+                            let tr = table.getElementsByTagName("TR");
+
+                            let th = tr[0].getElementsByTagName("TH");
+                            let td = tr[1].getElementsByTagName("TD");
+                            let course_name = document.getElementsByClassName("course-name");
+                            let course_fee = document.getElementsByClassName("course-fee");
+                            course_name[0].parentElement.remove();
+                            for(i = 0;i<th.length-2; i++){
+                                $(".add-field-btn").click();
+                                course_name[i].value = th[i].innerHTML;
+                                course_fee[i].value = td[i].innerHTML;
+                                $("#fee-modal").modal('hide');
+                            }
+
+                            // let key_name_with_num = a[0].innerHTML;
+                            // let key_name = key_name_with_num.split(" ");
+                            // let db_name = sessionStorage.getItem("db_name");
+                            // let database = window.indexedDB.open(db_name);
+                            // database.onsuccess = function(){
+                            //     let idb = this.result;
+                            //     let permission = idb.transaction("fee","readwrite");
+                            //     let access = permission.objectStore("fee");
+                            //     let key_data = access.get(key_name[2]);
+                            //     console.log(key_data.class_name);
+                            // }
+                        }
+
+                        // edit fee coding end
                     }
                 }
             }
