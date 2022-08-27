@@ -35,31 +35,98 @@
             <div class="col-3"></div>
             <div class="col-9 py-4">
                 <div class="row">
-                    <div class="col-md-6 bg-white">
-                        <img src="../images/check_fee.png" id="check-fee-btn" alt="check fee btn"  style="width: 150px; position: absolute; top: 0; right: 0">
-                        <h5 class="my-4 text-center">SET FEE FOR CLASSES</h5>
-                        <input class="form-control mb-4 class-name" type="number" placeholder="Enter class name ex : 7">
-                        <div class="add-field-area">
+                    <div class="col-md-6">
+                        <div style="width: 95%;" class="bg-white position-relative px-4 pt-2 pb-4 mb-4">
+
+                            <img src="../images/check_fee.png" id="check-fee-btn" alt="check fee btn"  style="width: 150px; position: absolute; top: 0; right: 0">
+                            <h5 class="mb-4 text-center">SET FEE FOR CLASSES</h5>
+                            <input class="form-control mb-4 class-name" type="number" placeholder="Enter class name ex : 7">
+                            <div class="add-field-area">
+                                <div class="input-group mb-4">
+                                    <input type="text" name="course-name" placeholder="Hostel fee" class="form-control course-name">
+                                    <input type="text" name="course-fee" placeholder="500" class="form-control course-fee">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-warning">Monthly</span>
+                                    </div>                                
+                                    <button class="btn btn-light ml-1 border-1">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            <center>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary text-light add-field-btn"><i class="fa fa-plus"></i> Add field</button>
+                                    <button class="btn btn-danger text-light set-fee-btn">Set fee now</button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-white position-relative px-4 pt-2 pb-4" style="width: 95%;">
+                            <img src="../images/take_adm_pic.png" alt="take_adm_pic" style="width: 150px; position: absolute; top: 0; left: 0;">
+                            <h5 class="mb-4 text-center">TAKE ADMISSION</h5>
+                            <div class="media">
+                                <div class="s-pic border" style="width: 130px; height: 100px;">
+                                    <img src="../images/upload_pic.jpg" alt="upload_pic" style="width: 100%; height: 100%;">
+                                </div>
+                                <div class="media-content w-100 pl-4 mb-4">
+                                    <input type="text" name="s-name" placeholder="Student's name" class="form-control s-name mb-4">
+                                    <input type="text" name="f-name" placeholder="Faters's name" class="form-control f-name">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control mb-4" placeholder="Mother's name" name="m-name">
                             <div class="input-group mb-4">
-                                <input type="text" name="course-name" placeholder="Hostel fee" class="form-control course-name">
-                                <input type="text" name="course-fee" placeholder="500" class="form-control course-fee">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text bg-warning">Monthly</span>
-                                </div>                                
-                                <button class="btn btn-light ml-1 border-1">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                
+                                    <span class="input-group-text">Mobile</span>
+                                </div>
+                                <input type="number" class="form-control mobile-one" name="mobile-one">
+                                <input type="number" class="form-control mobile-two" name="mobile-two">
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">DOB</span>
+                                </div>
+                                <input type="date" class="form-control">
+                                <select name="gender" id="gender" class="custom-control border" style="margin-left: 2px">
+                                    <option value="male">MALE</option>
+                                    <option value="female">FEMALE</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Gender</span>
+                                </div>
+                            </div>
+                            <select class="form-control mb-4">
+                                <option>choose class</option>
+                            </select>
+
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Admitted in</span>
+                                </div>
+                                <select class="form-control admit-in">
+                                    <option value="school">School</option>
+                                    <option value="hostel">Hostel</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Address</span>
+                                </div>
+                                <textarea class="form-control address"></textarea>
+                            </div>
+
+                            <div class="alert admit-notice mb-4 d-none">
+                            
+                            </div>
+
+                            <div align="right">
+                                <button class="btn btn-danger">Admit now!</button>
                             </div>
                         </div>
-                        <center>
-                            <div class="btn-group mb-4">
-                                <button class="btn btn-primary text-light add-field-btn"><i class="fa fa-plus"></i> Add field</button>
-                                <button class="btn btn-danger text-light set-fee-btn">Set fee now</button>
-                            </div>
-                        </center>
+
                     </div>
-                    <div class="col-md-6"></div>
                 </div>
             </div>
         </div>

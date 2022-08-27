@@ -190,18 +190,6 @@ $(document).ready(function () {
                                 course_fee[i].value = td[i].innerHTML;
                                 $("#fee-modal").modal('hide');
                             }
-
-                            // let key_name_with_num = a[0].innerHTML;
-                            // let key_name = key_name_with_num.split(" ");
-                            // let db_name = sessionStorage.getItem("db_name");
-                            // let database = window.indexedDB.open(db_name);
-                            // database.onsuccess = function(){
-                            //     let idb = this.result;
-                            //     let permission = idb.transaction("fee","readwrite");
-                            //     let access = permission.objectStore("fee");
-                            //     let key_data = access.get(key_name[2]);
-                            //     console.log(key_data.class_name);
-                            // }
                         }
 
                         // edit fee coding end
