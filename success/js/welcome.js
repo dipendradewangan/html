@@ -201,3 +201,27 @@ $(document).ready(function () {
 });
 
 // show fee coding end
+
+// retrive class name coding start
+
+$(document).ready(function(){
+    let db_name = sessionStorage.getItem("db_name");
+    let database = window.indexedDB.open(db_name);
+    database.onsuccess = function(){
+        let idb = this.result;
+        let permission = idb.transaction("fee","readwrite");
+        let access = permission.objectStore("fee");
+        let key_name = access.getAllKeys();
+        key_name.onsuccess = function(){
+            let keys = this.result;
+            for(i=0; i<keys.length; i++){
+                let option = document.createElement("OPTION");
+                option.innerHTML = keys[i];
+                $(".class").append(option);
+            }
+        }
+
+    }
+});
+
+// retrive class name coding end
