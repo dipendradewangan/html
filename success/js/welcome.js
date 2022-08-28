@@ -191,7 +191,7 @@ $(document).ready(function () {
                                 $("#fee-modal").modal('hide');
                             }
                         }
-
+                        
                         // edit fee coding end
                     }
                 }
@@ -225,3 +225,26 @@ $(document).ready(function(){
 });
 
 // retrive class name coding end
+
+// profile pic upload coding start
+
+$(document).ready(function(){
+    $(".upload-pic").click(function(){
+        let input = document.createElement("INPUT");
+        input.type = "file";
+        input.accept = "image/*";
+        input.click();
+        input.onchange = function(){
+            let file = this.files[0];
+            let url = URL.createObjectURL(file);
+            $(".upload-pic").attr("src", url);
+            let reader = new FileReader;
+            reader.readAsBinaryString(file);
+            reader.onload = function(){
+                sessionStorage.setItem("upload_pic",this.result);
+            }
+        }
+    });
+});
+
+// profile pic upload coding end
