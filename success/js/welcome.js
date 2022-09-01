@@ -49,7 +49,7 @@ $(document).ready(function () {
             let idb = this.result;
             let permission = idb.transaction("fee", "readwrite");
             let access = permission.objectStore("fee");
-            let fee_object_store = access.add(fee_object);
+            let fee_object_store = access.put(fee_object);
             fee_object_store.onsuccess = function () {
                 alert("success fully stored fee object");
             }
@@ -146,32 +146,9 @@ $(document).ready(function () {
                         $("#show-fee").append(table);
 
 
-                        // delete fee coding start
-                        td_for_delete_icon.onclick = function(){
-                            let ul = this.parentElement.parentElement.previousSibling;
-                            let a = ul.getElementsByTagName("A");
-                            let key_name_with_num = a[0].innerHTML;
-                            let key_name = key_name_with_num.split(" ");
-                            let db_name = sessionStorage.getItem("db_name");
-                            let database = window.indexedDB.open(db_name);
-                            database.onsuccess = function(){
-                                let idb = this.result;
-                                let permission = idb.transaction("fee","readwrite");
-                                let access = permission.objectStore("fee");
-                                let delete_success = access.delete(key_name[2]);
-                                delete_success.onsuccess = function(){
-                                    alert("successfully deleted "+key_name_with_num);
-                                    ul.remove();
-                                    td_for_delete_icon.parentElement.parentElement.remove();
-                                }
-                            }
-                        }
-
-                        // delete fee coding end
-
                         // edit fee coding start
-                        
-                        td_for_edit_icon.onclick = function(){
+
+                        td_for_edit_icon.onclick = function () {
                             let table = this.parentElement.parentElement;
                             let ul = table.previousSibling;
                             let a = ul.getElementsByTagName("A");
@@ -184,15 +161,39 @@ $(document).ready(function () {
                             let course_name = document.getElementsByClassName("course-name");
                             let course_fee = document.getElementsByClassName("course-fee");
                             course_name[0].parentElement.remove();
-                            for(i = 0;i<th.length-2; i++){
+                            for (i = 0; i < th.length - 2; i++) {
                                 $(".add-field-btn").click();
                                 course_name[i].value = th[i].innerHTML;
                                 course_fee[i].value = td[i].innerHTML;
                                 $("#fee-modal").modal('hide');
                             }
+                            $(".set-fee").addClass("animate__animated animate__shakeY animate__faster");
                         }
-                        
+
                         // edit fee coding end
+
+                        // delete fee coding start
+                        td_for_delete_icon.onclick = function () {
+                            let ul = this.parentElement.parentElement.previousSibling;
+                            let a = ul.getElementsByTagName("A");
+                            let key_name_with_num = a[0].innerHTML;
+                            let key_name = key_name_with_num.split(" ");
+                            let db_name = sessionStorage.getItem("db_name");
+                            let database = window.indexedDB.open(db_name);
+                            database.onsuccess = function () {
+                                let idb = this.result;
+                                let permission = idb.transaction("fee", "readwrite");
+                                let access = permission.objectStore("fee");
+                                let delete_success = access.delete(key_name[2]);
+                                delete_success.onsuccess = function () {
+                                    alert("successfully deleted " + key_name_with_num);
+                                    ul.remove();
+                                    td_for_delete_icon.parentElement.parentElement.remove();
+                                }
+                            }
+                        }
+
+                        // delete fee coding end
                     }
                 }
             }
@@ -204,17 +205,17 @@ $(document).ready(function () {
 
 // retrive class name coding start
 
-$(document).ready(function(){
+$(document).ready(function () {
     let db_name = sessionStorage.getItem("db_name");
     let database = window.indexedDB.open(db_name);
-    database.onsuccess = function(){
+    database.onsuccess = function () {
         let idb = this.result;
-        let permission = idb.transaction("fee","readwrite");
+        let permission = idb.transaction("fee", "readwrite");
         let access = permission.objectStore("fee");
         let key_name = access.getAllKeys();
-        key_name.onsuccess = function(){
+        key_name.onsuccess = function () {
             let keys = this.result;
-            for(i=0; i<keys.length; i++){
+            for (i = 0; i < keys.length; i++) {
                 let option = document.createElement("OPTION");
                 option.innerHTML = keys[i];
                 $(".class").append(option);
@@ -228,23 +229,81 @@ $(document).ready(function(){
 
 // profile pic upload coding start
 
-$(document).ready(function(){
-    $(".upload-pic").click(function(){
-        let input = document.createElement("INPUT");
-        input.type = "file";
-        input.accept = "image/*";
-        input.click();
-        input.onchange = function(){
-            let file = this.files[0];
-            let url = URL.createObjectURL(file);
-            $(".upload-pic").attr("src", url);
-            let reader = new FileReader;
-            reader.readAsBinaryString(file);
-            reader.onload = function(){
-                sessionStorage.setItem("upload_pic",this.result);
-            }
+$(document).ready(function () {
+    $(".upload-pic").on("change", function () {
+        $(".admit-notice").html("");
+        let file = this.files[0];
+        let url = URL.createObjectURL(file);
+        $(".show-pic").attr("src", url);
+        let reader = new FileReader;
+        reader.readAsBinaryString(file);
+        reader.onload = function () {
+            sessionStorage.setItem("upload_pic", this.result);
         }
     });
 });
 
 // profile pic upload coding end
+
+// admission coding start
+
+$(document).ready(function () {
+    $(".admission-form").submit(function () {
+        if (sessionStorage.getItem("upload_pic") != null) {
+            let date = new Date($(".dob").val());
+            let dob_day = date.getDate();
+            let dob_month = date.getMonth() + 1;
+            let dob_year = date.getFullYear();
+            let dob = dob_day + "/" + dob_month + "/" + dob_year;
+            let current_date = new Date();
+            let doa_day = current_date.getDate();
+            let doa_month = current_date.getMonth() + 1;
+            let doa_year = current_date.getFullYear();
+            let doa = doa_day + "/" + doa_month + "/" + doa_year;
+            let admission = {
+                s_name: $(".s-name").val(),
+                f_name: $(".f-name").val(),
+                m_name: $(".m-name").val(),
+                dob: dob,
+                gender: $(".gender").val(),
+                mobile_one: $(".mobile-one").val(),
+                mobile_two: $(".mobile-two").val(),
+                class: $(".class").val(),
+                admit_in: $(".admit-in").val(),
+                address: $(".address").val(),
+                doa: doa,
+                profile_pic: sessionStorage.getItem("upload_pic")
+            }
+            sessionStorage.removeItem("upload_pic");
+            let db_name = sessionStorage.getItem("db_name");
+            let database = window.indexedDB.open(db_name);
+            database.onsuccess = function () {
+                let idb = this.result;
+                let permission = idb.transaction("admission", "readwrite");
+                let access = permission.objectStore("admission");
+                let check_admission = access.add(admission);
+                check_admission.onsuccess = function () {
+                    $(".show-pic").attr("src", "../images/upload_pic.jpg");
+                    $(".admit-notice").html("");
+                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b></div>";
+                    $(".admit-notice").html(alert);
+                }
+                check_admission.onerror = function () {
+                    $(".show-pic").attr("src", "../images/upload_pic.jpg");
+                    $(".admit-notice").html("");
+                    let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission failed !</b></div>";
+                    $(".admit-notice").html(alert);
+
+                }
+            }
+        } else {
+            $(".admit-notice").html("");
+            let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Please upload student pic !</b></div>";
+            $(".admit-notice").html(alert);
+        }
+        $(this).trigger("reset");
+        return false;
+    });
+});
+
+// admission coding end
