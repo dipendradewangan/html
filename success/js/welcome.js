@@ -284,8 +284,9 @@ $(document).ready(function () {
                 let check_admission = access.add(admission);
                 check_admission.onsuccess = function () {
                     $(".show-pic").attr("src", "../images/upload_pic.jpg");
+                    admission_no();
                     $(".admit-notice").html("");
-                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b></div>";
+                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b> <a href='#'>Get amission slip</a>   </div>";
                     $(".admit-notice").html(alert);
                 }
                 check_admission.onerror = function () {
@@ -307,3 +308,52 @@ $(document).ready(function () {
 });
 
 // admission coding end
+
+// sidebar coding start
+
+$(document).ready(function(){
+    let db_name = sessionStorage.getItem("db_name");
+    $(".school-name").html(db_name);
+    $(".school-name").css({"textTransform":"uppercase"});
+    let database = window.indexedDB.open(db_name);
+    database.onsuccess = function(){
+        let idb = this.result;
+        let permission = idb.transaction("about_school","readwrite");
+        let access = permission.objectStore("about_school");
+        let check_data = access.get(db_name);
+        check_data.onsuccess = function(){
+            let school_info = this.result;
+            $(".tag-line").html(school_info.tag_line);
+        }
+    }
+
+});
+// sidebar coding end
+
+// admission number coding start
+
+function admission_no(){
+    let db_name = sessionStorage.getItem("db_name");
+    let database = window.indexedDB.open(db_name);
+    let max_num = 0;
+    database.onsuccess = function(){
+        let idb = this.result;
+        let permission = idb.transaction("admission","readwrite");
+        let access = permission.objectStore("admission");
+        let check_data = access.getAllKeys()
+        check_data.onsuccess = function(){
+            let keys_array = this.result;
+            for(i=0; i<keys_array.length;i++){
+                if(keys_array[i]>max_num){
+                    max_num = keys_array[i];
+
+                }
+            }
+            $(".adm-no").html("Adm no: "+parseInt(max_num+1));
+        }
+    }
+}
+
+
+admission_no();
+// admission number coding end
