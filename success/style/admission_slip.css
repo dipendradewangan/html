@@ -1,0 +1,44 @@
+@charset "utf-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.main-cont{
+    width: 800px;
+    margin: 50px auto;
+    border: 1px solid black;
+    padding: 0px;
+}
+
+.header{
+    display: flex;
+}
+
+.photo-box{
+    width: 120px;
+    height: 130px;
+    border: 3px solid black;
+    margin: 20px;
+}
+
+.school-info-box{
+    display: flex;
+    width: 680px;
+    
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.footer
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.stamp{
+    display: flex;
+    flex-direction: column;
+}

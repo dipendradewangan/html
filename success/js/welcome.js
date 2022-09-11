@@ -286,7 +286,7 @@ $(document).ready(function () {
                     $(".show-pic").attr("src", "../images/upload_pic.jpg");
                     admission_no();
                     $(".admit-notice").html("");
-                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b> <a href='#'>Get amission slip</a>   </div>";
+                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b> <a href='admission_slip.html'>Get amission slip</a>   </div>";
                     $(".admit-notice").html(alert);
                 }
                 check_admission.onerror = function () {
@@ -357,3 +357,4 @@ function admission_no(){
 
 admission_no();
 // admission number coding end
+
