@@ -346,9 +346,9 @@ function admission_no(){
             for(i=0; i<keys_array.length;i++){
                 if(keys_array[i]>max_num){
                     max_num = keys_array[i];
-
                 }
             }
+            sessionStorage.setItem("a_no",max_num);
             $(".adm-no").html("Adm no: "+parseInt(max_num+1));
         }
     }
@@ -357,4 +357,3 @@ function admission_no(){
 
 admission_no();
 // admission number coding end
-

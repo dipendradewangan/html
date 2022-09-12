@@ -35,10 +35,11 @@
 .footer
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .stamp{
     display: flex;
     flex-direction: column;
+    padding: 0 50px;
 }
