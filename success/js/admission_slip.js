@@ -45,3 +45,9 @@ $(document).ready(function(){
         }
     }
 });
+
+$(document).ready(function(){
+    $(".print-adm-doc").click(function(){
+        window.print();
+    });
+});

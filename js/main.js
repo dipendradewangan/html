@@ -116,7 +116,10 @@ else {
                     mobile: mobile,
                     password: password,
                     phone: phone,
-                    address: address
+                    address: address,
+                    school_logo: "",
+                    director_signature : "",
+                    principal_signature : ""
                 };
                 let object = idb.createObjectStore("about_school", { keyPath: "school_name" });
                 idb.createObjectStore("fee",{keyPath:"class_name"});

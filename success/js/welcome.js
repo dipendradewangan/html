@@ -173,6 +173,7 @@ $(document).ready(function () {
                         // edit fee coding end
 
                         // delete fee coding start
+
                         td_for_delete_icon.onclick = function () {
                             let ul = this.parentElement.parentElement.previousSibling;
                             let a = ul.getElementsByTagName("A");
@@ -311,17 +312,19 @@ $(document).ready(function () {
 
 // sidebar coding start
 
-$(document).ready(function(){
+$(document).ready(function () {
     let db_name = sessionStorage.getItem("db_name");
     $(".school-name").html(db_name);
-    $(".school-name").css({"textTransform":"uppercase"});
+    $(".school-name").css({
+        "textTransform": "uppercase"
+    });
     let database = window.indexedDB.open(db_name);
-    database.onsuccess = function(){
+    database.onsuccess = function () {
         let idb = this.result;
-        let permission = idb.transaction("about_school","readwrite");
+        let permission = idb.transaction("about_school", "readwrite");
         let access = permission.objectStore("about_school");
         let check_data = access.get(db_name);
-        check_data.onsuccess = function(){
+        check_data.onsuccess = function () {
             let school_info = this.result;
             $(".tag-line").html(school_info.tag_line);
         }
@@ -332,24 +335,24 @@ $(document).ready(function(){
 
 // admission number coding start
 
-function admission_no(){
+function admission_no() {
     let db_name = sessionStorage.getItem("db_name");
     let database = window.indexedDB.open(db_name);
     let max_num = 0;
-    database.onsuccess = function(){
+    database.onsuccess = function () {
         let idb = this.result;
-        let permission = idb.transaction("admission","readwrite");
+        let permission = idb.transaction("admission", "readwrite");
         let access = permission.objectStore("admission");
         let check_data = access.getAllKeys()
-        check_data.onsuccess = function(){
+        check_data.onsuccess = function () {
             let keys_array = this.result;
-            for(i=0; i<keys_array.length;i++){
-                if(keys_array[i]>max_num){
+            for (i = 0; i < keys_array.length; i++) {
+                if (keys_array[i] > max_num) {
                     max_num = keys_array[i];
                 }
             }
-            sessionStorage.setItem("a_no",max_num);
-            $(".adm-no").html("Adm no: "+parseInt(max_num+1));
+            sessionStorage.setItem("a_no", max_num);
+            $(".adm-no").html("Adm no: " + parseInt(max_num + 1));
         }
     }
 }
@@ -357,3 +360,82 @@ function admission_no(){
 
 admission_no();
 // admission number coding end
+
+
+// find student using admission number coding start
+
+$(document).ready(function () {
+    $(".find-btn").click(function () {
+        let a_no = $(".find-admission-no").val();
+        if (a_no != "") {
+            sessionStorage.setItem("a_no", a_no);
+            window.location = "admission_slip.html";
+        } else {
+            alert("please insert your admission no");
+        }
+    });
+});
+
+// find student using admission number coding end
+
+// show signature and logo coding start
+
+$(document).ready(function () {
+    let db_name = sessionStorage.getItem("db_name");
+    let database = window.indexedDB.open(db_name);
+    database.onsuccess = function () {
+        let idb = this.result;
+        let permission = idb.transaction("about_school", "readwrite");
+        let access = permission.objectStore("about_school");
+        let check_data = access.get(db_name);
+        check_data.onsuccess = function () {
+            let data = this.result;
+            if (data.director_signature == "") {
+                $(".director-sign-box").addClass("d-none");
+                $(".director-sign-input").removeClass("d-none");
+            } else {
+                $(".director-sign-box").removeClass("d-none");
+                $(".director-sign-input").addClass("d-none");
+                let signature = data.director_signature;
+                let image = new Image();
+                image.src = signature;
+                image.width = 150;
+                image.height = 50;
+                $(".director-sign").html(image);
+            }
+        }
+    }
+});
+
+// show signature and logo coding end
+
+// upload director signature photo coding start
+
+$(document).ready(function () {
+    $("#director").on("change", function () {
+        let file =  this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(){
+            let signature = this.result;
+            let db_name = sessionStorage.getItem("db_name");
+            let database = window.indexedDB.open(db_name);
+            database.onsuccess = function(){
+                let idb = this.result;
+                let permission = idb.transaction("about_school","readwrite");
+                let access = permission.objectStore("about_school");
+                let check_data = access.get(db_name);
+                check_data.onsuccess = function(){
+                    let data = this.result;
+                    data.director_signature = signature;
+                    let update_signature =  access.put(data);
+                    update_signature.onsuccess = function(){
+                        window.location = location.href;
+                    }
+                }
+            }
+        }
+    });
+});
+
+// upload director signature photo coding end

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Document</title>
-    
+
     <!-- bootstrap css link -->
     <link rel="stylesheet" href="../css/bootstrap.css">
 
@@ -24,9 +25,10 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.js"></script>
 </head>
+
 <body>
     <script>
-        if(sessionStorage.getItem("login") == null){
+        if (sessionStorage.getItem("login") == null) {
             window.location = "invalid.html";
         }
     </script>
@@ -34,16 +36,25 @@
         <div class="row">
             <div class="col-3 p-4 bg-white">
                 <center>
-                    <div style="width: 100px; height: 100px; border: 1px solid #ccc; box-shadow: 0px 0px 2px #ddd;"></div>
+                    <div style="width: 100px; height: 100px; border: 1px solid #ccc; box-shadow: 0px 0px 2px #ddd;">
+                    </div>
                     <h4 class="school-name  mt-4">Kalinga Public School</h4>
                     <span class=" tag-line">this is tagline for our kalinga public school</span>
                     <button class="btn btn-info mt-4">SCHOOL MANAGEMENT SYSTEM V-1.0</button>
                 </center>
                 <h5 class="mt-5">Director Signature</h5>
-                <div class="custom-file">
+                <div class="custom-file director-sign-input">
                     <input type="file" accept="image/*" class="custom-file-input" id="director">
                     <label for="director" class="custom-file-label">Upload</label>
                 </div>
+                <ul class="list-group director-sign-box">
+                    <li class="list-group-item director-sign" style="width: auto;">
+                        
+                    </li>
+                    <li class="list-group-item bg-danger">
+                        <i class="fa fa-trash text-white" style="font-size: 30px;"></i>
+                    </li>
+                </ul>
                 <h5 class="mt-5">Principal Sinature</h5>
                 <div class="custom-file">
                     <input type="file" accept="image/*" class="custom-file-input" id="principal">
@@ -54,29 +65,34 @@
                 <div class="row">
 
                     <!-- set fee portion coding start -->
-                    
+
                     <div class="col-md-6" align="center">
                         <div style="width: 95%;" class="bg-white position-relative px-4 pt-2 pb-4 mb-4 set-fee">
 
-                            <img src="../images/check_fee.png" id="check-fee-btn" alt="check fee btn"  style="width: 150px; position: absolute; top: 0; right: 0">
+                            <img src="../images/check_fee.png" id="check-fee-btn" alt="check fee btn"
+                                style="width: 150px; position: absolute; top: 0; right: 0">
                             <h5 class="mb-4 text-center">SET FEE FOR CLASSES</h5>
-                            <input class="form-control mb-4 class-name" type="number" placeholder="Enter class name ex : 7">
+                            <input class="form-control mb-4 class-name" type="number"
+                                placeholder="Enter class name ex : 7">
                             <div class="add-field-area">
                                 <div class="input-group mb-4">
-                                    <input type="text" name="course-name" placeholder="Hostel fee" class="form-control course-name">
-                                    <input type="text" name="course-fee" placeholder="500" class="form-control course-fee">
+                                    <input type="text" name="course-name" placeholder="Hostel fee"
+                                        class="form-control course-name">
+                                    <input type="text" name="course-fee" placeholder="500"
+                                        class="form-control course-fee">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning">Monthly</span>
-                                    </div>                                
+                                    </div>
                                     <button class="btn btn-light ml-1 border-1">
                                         <i class="fa fa-trash"></i>
                                     </button>
-                                    
+
                                 </div>
                             </div>
                             <center>
                                 <div class="btn-group">
-                                    <button class="btn btn-primary text-light add-field-btn"><i class="fa fa-plus"></i> Add field</button>
+                                    <button class="btn btn-primary text-light add-field-btn"><i class="fa fa-plus"></i>
+                                        Add field</button>
                                     <button class="btn btn-danger text-light set-fee-btn">Set fee now</button>
                                 </div>
                             </center>
@@ -99,42 +115,50 @@
 
                         <div class="bg-white px-4 pt-2 pb-4" style="width: 95%;">
                             <h5 class="text-center mb-2">FIND STUDENTS</h5>
-                            <input type="search" class="form-control mb-4">
+                            <input type="number" class="form-control mb-4 find-admission-no">
                             <div class="text-right">
-                                <button class="btn btn-danger">find now</button>
+                                <button class="btn btn-danger find-btn">find now</button>
                             </div>
                         </div>
 
                     </div>
-                    
+
                     <!-- set fee portion coding end -->
 
                     <!-- admission portion coding start -->
-                    
+
                     <div class="col-md-6">
                         <div class="bg-white position-relative px-4 pt-2 pb-4" style="width: 95%;">
-                            <img src="../images/take_adm_pic.png" alt="take_adm_pic" style="width: 150px; position: absolute; top: 0; left: 0;">
-                            <button class="btn-sm btn-dark position-absolute adm-no" style="right: 1px; top:1px; outline:none">Adm no: 01</button>
+                            <img src="../images/take_adm_pic.png" alt="take_adm_pic"
+                                style="width: 150px; position: absolute; top: 0; left: 0;">
+                            <button class="btn-sm btn-dark position-absolute adm-no"
+                                style="right: 1px; top:1px; outline:none">Adm no: 01</button>
                             <h5 class="mb-4 text-center">TAKE ADMISSION</h5>
                             <form class="admission-form">
 
                                 <div class="media">
-                                    
+
                                     <div class="s-pic border position-relative" style="width: 130px; height: 100px;">
-                                        <img src="../images/upload_pic.jpg" class="show-pic" alt="upload_pic" style="width: 100%; height: 100%;">
-                                        <input type="file" accept="image/*" class="upload-pic" style="position: absolute;opacity: 0; width: 100%;  height: 100%; border: 1px solid red; top: 0; left: 0;">
+                                        <img src="../images/upload_pic.jpg" class="show-pic" alt="upload_pic"
+                                            style="width: 100%; height: 100%;">
+                                        <input type="file" accept="image/*" class="upload-pic"
+                                            style="position: absolute;opacity: 0; width: 100%;  height: 100%; border: 1px solid red; top: 0; left: 0;">
                                     </div>
                                     <div class="media-content w-100 pl-4 mb-4">
-                                        <input required="required" type="text" name="s-name" placeholder="Student's name" class="form-control s-name mb-4">
-                                        <input required="required" type="text" name="f-name" placeholder="Faters's name" class="form-control f-name">
+                                        <input required="required" type="text" name="s-name"
+                                            placeholder="Student's name" class="form-control s-name mb-4">
+                                        <input required="required" type="text" name="f-name" placeholder="Faters's name"
+                                            class="form-control f-name">
                                     </div>
                                 </div>
-                                <input required="required" type="text" class="form-control mb-4 m-name" placeholder="Mother's name" name="m-name">
+                                <input required="required" type="text" class="form-control mb-4 m-name"
+                                    placeholder="Mother's name" name="m-name">
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Mobile</span>
                                     </div>
-                                    <input required="required" type="number" class="form-control mobile-one" name="mobile-one">
+                                    <input required="required" type="number" class="form-control mobile-one"
+                                        name="mobile-one">
                                     <input type="number" class="form-control mobile-two" name="mobile-two">
                                 </div>
                                 <div class="input-group mb-4">
@@ -142,7 +166,8 @@
                                         <span class="input-group-text">DOB</span>
                                     </div>
                                     <input required="required" type="date" class="form-control dob">
-                                    <select name="gender" id="gender" class="custom-control border gender" style="margin-left: 2px">
+                                    <select name="gender" id="gender" class="custom-control border gender"
+                                        style="margin-left: 2px">
                                         <option value="male">MALE</option>
                                         <option value="female">FEMALE</option>
                                     </select>
@@ -153,7 +178,7 @@
                                 <select class="form-control mb-4 class">
                                     <option>choose class</option>
                                 </select>
-                                
+
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Admitted in</span>
@@ -163,18 +188,18 @@
                                         <option value="hostel">Hostel</option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Address</span>
                                     </div>
                                     <textarea class="form-control address"></textarea>
                                 </div>
-                                
+
                                 <div class=" admit-notice mb-4">
                                     <!-- this div is used for alert box it shows dynamically admission result -->
                                 </div>
-                                
+
                                 <div align="right">
                                     <button class="btn btn-danger admit-btn">Admit now!</button>
                                 </div>
@@ -190,7 +215,7 @@
     </div>
 
     <!-- fee modal coding start -->
-    
+
     <div class="modal animate__animated animate__slideInDown animate__faster" id="fee-modal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -206,8 +231,9 @@
             </div>
         </div>
     </div>
-    
+
     <!-- fee modal coding end -->
     <script src="js/welcome.js"></script>
 </body>
+
 </html>

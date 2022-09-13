@@ -16,3 +16,8 @@ body{
 .bg-white{
     background-color: white;
 }
+
+.director-sign-box{
+    display: flex;
+    flex-direction: row;
+}
