@@ -250,62 +250,101 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".admission-form").submit(function () {
-        if (sessionStorage.getItem("upload_pic") != null) {
-            let date = new Date($(".dob").val());
-            let dob_day = date.getDate();
-            let dob_month = date.getMonth() + 1;
-            let dob_year = date.getFullYear();
-            let dob = dob_day + "/" + dob_month + "/" + dob_year;
-            let current_date = new Date();
-            let doa_day = current_date.getDate();
-            let doa_month = current_date.getMonth() + 1;
-            let doa_year = current_date.getFullYear();
-            let doa = doa_day + "/" + doa_month + "/" + doa_year;
-            let admission = {
-                s_name: $(".s-name").val(),
-                f_name: $(".f-name").val(),
-                m_name: $(".m-name").val(),
-                dob: dob,
-                gender: $(".gender").val(),
-                mobile_one: $(".mobile-one").val(),
-                mobile_two: $(".mobile-two").val(),
-                class: $(".class").val(),
-                admit_in: $(".admit-in").val(),
-                address: $(".address").val(),
-                doa: doa,
-                profile_pic: sessionStorage.getItem("upload_pic")
-            }
-            sessionStorage.removeItem("upload_pic");
-            let db_name = sessionStorage.getItem("db_name");
-            let database = window.indexedDB.open(db_name);
-            database.onsuccess = function () {
-                let idb = this.result;
-                let permission = idb.transaction("admission", "readwrite");
-                let access = permission.objectStore("admission");
-                let check_admission = access.add(admission);
-                check_admission.onsuccess = function () {
-                    $(".show-pic").attr("src", "../images/upload_pic.jpg");
-                    admission_no();
+        let s_name = $(".s-name").val();
+        let f_name = $(".f-name").val();
+        let m_name = $(".m-name").val();
+        let date = new Date($(".dob").val());
+        let gender = $(".gender").val();
+        let mobile_one = $(".mobile-one").val();
+        let mobile_two = $(".mobile-two").val();
+        let s_class = $(".class").val();
+        let admit_in = $(".admit-in").val();
+        let address = $(".address").val();
+        let profile_pic = sessionStorage.getItem("upload_pic");
+        alert(s_name);
+        let a_no = 0;
+        let max_num = 0;
+        let db_name = sessionStorage.getItem("db_name");
+        let database = window.indexedDB.open(db_name);
+        database.onsuccess = function(){
+            let idb = this.result;
+            let permission = idb.transaction("admission","readwrite");
+            let access = permission.objectStore("admission");
+            let key_name = access.getAllKeys();
+            key_name.onsuccess = function(){
+                keys_array = this.result;
+                if(keys_array.length == 0){
+                    a_no = 1;
+                }
+                else{
+                    for(i =0 ;i<keys_array.length; i++){
+                        let number = Number(keys_array[i]);
+                        if(number > max_num){
+                            max_num = number;
+                        }
+                    }
+                    a_no = max_num+1;
+                }
+                if (sessionStorage.getItem("upload_pic") != null) {
+                    // let date = new Date($(".dob").val());
+                    let dob_day = date.getDate();
+                    let dob_month = date.getMonth() + 1;
+                    let dob_year = date.getFullYear();
+                    let dob = dob_day + "/" + dob_month + "/" + dob_year;
+                    let current_date = new Date();
+                    let doa_day = current_date.getDate();
+                    let doa_month = current_date.getMonth() + 1;
+                    let doa_year = current_date.getFullYear();
+                    let doa = doa_day + "/" + doa_month + "/" + doa_year;
+                    let admission = {
+                        adm_no : a_no,
+                        s_name: s_name,
+                        f_name: f_name,
+                        m_name: m_name,
+                        dob: dob,
+                        gender: gender,
+                        mobile_one: mobile_one,
+                        mobile_two: mobile_two,
+                        class: s_class,
+                        admit_in: admit_in,
+                        address: address,
+                        doa: doa,
+                        profile_pic: profile_pic
+                    }
+                    alert(admission.s_name);
+                    sessionStorage.removeItem("upload_pic");
+                    let db_name = sessionStorage.getItem("db_name");
+                    let database = window.indexedDB.open(db_name);
+                    database.onsuccess = function () {
+                        let idb = this.result;
+                        let permission = idb.transaction("admission", "readwrite");
+                        let access = permission.objectStore("admission");
+                        let check_admission = access.add(admission);
+                        check_admission.onsuccess = function () {
+                            $(".show-pic").attr("src", "../images/upload_pic.jpg");
+                            admission_no();
+                            $(".admit-notice").html("");
+                            let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b> <a href='admission_slip.html'>Get amission slip</a>   </div>";
+                            $(".admit-notice").html(alert);
+                        }
+                        check_admission.onerror = function () {
+                            $(".show-pic").attr("src", "../images/upload_pic.jpg");
+                            $(".admit-notice").html("");
+                            let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission failed !</b></div>";
+                            $(".admit-notice").html(alert);
+                
+                        }
+                    }
+                } else {
                     $(".admit-notice").html("");
-                    let alert = "<div class='alert alert-success'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission Success !</b> <a href='admission_slip.html'>Get amission slip</a>   </div>";
+                    let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Please upload student pic !</b></div>";
                     $(".admit-notice").html(alert);
                 }
-                check_admission.onerror = function () {
-                    $(".show-pic").attr("src", "../images/upload_pic.jpg");
-                    $(".admit-notice").html("");
-                    let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Admission failed !</b></div>";
-                    $(".admit-notice").html(alert);
-
-                }
             }
-        } else {
-            $(".admit-notice").html("");
-            let alert = "<div class='alert alert-warning'><i class='fa fa-close close' data-dismiss='alert'></i> <b>Please upload student pic !</b></div>";
-            $(".admit-notice").html(alert);
         }
         $(this).trigger("reset");
         return false;
-    });
+    }); 
 });
 
 // admission coding end
@@ -390,22 +429,52 @@ $(document).ready(function () {
         let check_data = access.get(db_name);
         check_data.onsuccess = function () {
             let data = this.result;
+
+            // verifying director signature 
             if (data.director_signature == "") {
                 $(".director-sign-box").addClass("d-none");
-                $(".director-sign-input").removeClass("d-none");
+                $(".director-sign-input").removeClass("d-none")
             } else {
+                $(".director-sign-input").addClass("d-none")
                 $(".director-sign-box").removeClass("d-none");
-                $(".director-sign-input").addClass("d-none");
-                let signature = data.director_signature;
+                let d_signature = data.director_signature;
+                let d_image = new Image();
+                d_image.src = d_signature;
+                d_image.width = 150;
+                d_image.height = 50;
+                $('.director-sign').html(d_image);
+            }
+            
+            // verifying principal singature
+            if(data.principal_signature == ""){
+                $(".principal-sign-box").addClass("d-none");
+                $(".principal-sign-input").removeClass("d-none");
+            }
+            else{
+                let p_signature = data.principal_signature;
                 let image = new Image();
-                image.src = signature;
+                image.src = p_signature;
                 image.width = 150;
                 image.height = 50;
-                $(".director-sign").html(image);
+                $(".principal-sign-input").addClass("d-none");
+                $(".principal-sign-box").removeClass("d-none");
+                $(".principal-sign").html(image);
+            }
+
+            // varifying school logo
+
+            if(data.school_info != ""){
+                let school_logo = data.school_logo;
+                let image = new Image();
+                image.src = school_logo;
+                image.style.width = "100%"; 
+                image.style.height = "100%"; 
+                $(".show-logo").html(image);
             }
         }
+
     }
-});
+})
 
 // show signature and logo coding end
 
@@ -413,11 +482,153 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("#director").on("change", function () {
-        let file =  this.files[0];
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let signature = this.result;
+            let db_name = sessionStorage.getItem("db_name");
+            let database = window.indexedDB.open(db_name);
+            database.onsuccess = function () {
+                let idb = this.result;
+                let permission = idb.transaction("about_school", "readwrite");
+                let access = permission.objectStore("about_school");
+                let check_data = access.get(db_name);
+                check_data.onsuccess = function () {
+                    let data = this.result;
+                    data.director_signature = signature;
+                    let upload_success = access.put(data);
+                    upload_success.onsuccess = function () {
+                        alert("successfully uploaded photo!");
+                        window.location = location.href;
+
+                    }
+                    upload_success.onerror = function () {
+                        alert("upload failed!");
+                        window.location = location.href;
+                    }
+                }
+            }
+        }
+    })
+})
+
+
+
+// delete director signature photo coding start
+
+$(document).ready(function () {
+    $(".delete-d-sign-icon").on("click", function () {
+        let db_name = sessionStorage.getItem("db_name");
+        let database = window.indexedDB.open(db_name);
+        database.onsuccess = function () {
+            let idb = this.result;
+            let permission = idb.transaction("about_school", "readwrite");
+            let access = permission.objectStore("about_school");
+            let check_data = access.get(db_name);
+            check_data.onsuccess = function () {
+                let data = this.result;
+                data.director_signature = "";
+                let del_success = access.put(data);
+                del_success.onsuccess = function () {
+                    alert("successfully deleted!");
+                    window.location = location.href;
+                }
+                del_success.onerror = function () {
+                    alert("delete failed!");
+                    window.location = location.href;
+                    let signature = data.principal_signature;
+                    let image = new Image();
+                    image.src = signature;
+                    image.width = 150;
+                    image.height = 50;
+                    alert(signature);
+                    $(".principal-sign").html(image);
+                }
+
+            }
+        }
+    })
+});
+
+// delete director signature photo coding end
+
+// upload principal signature coding start
+
+$(document).ready(function () {
+    $("#principal").on("change", function () {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let signature = this.result;
+            let db_name = sessionStorage.getItem("db_name");
+            let database = window.indexedDB.open(db_name);
+            database.onsuccess = function () {
+                let idb = this.result;
+                let permission = idb.transaction("about_school", "readwrite");
+                let access = permission.objectStore("about_school");
+                let check_data = access.get(db_name);
+                check_data.onsuccess = function () {
+                    let data = this.result;
+                    data.principal_signature = signature;
+                    let = upload_success = access.put(data);
+                    upload_success.onsuccess = function () {
+                        alert("principal sign successfully uploaded!");
+                        window.location = location.href;
+                    }
+                    upload_success.onerror = function () {
+                        alert("principal sign uploading failed!");
+                        window.location = location.href;
+                    }
+                }
+            };
+        }
+    });
+});
+
+// upload principal signature coding end
+
+
+// delete principal signature coding start
+
+$(document).ready(function () {
+    $(".delete-p-sign-icon").on("click", function () {
+        let db_name = sessionStorage.getItem("db_name");
+        let database = window.indexedDB.open(db_name);
+        database.onsuccess = function () {
+            let idb = this.result;
+            let permission = idb.transaction("about_school", "readwrite");
+            let access = permission.objectStore("about_school");
+            let check_data = access.get(db_name);
+            check_data.onsuccess = function () {
+                let data = this.result;
+                data.principal_signature = "";
+                let = del_success = access.put(data);
+                del_success.onsuccess = function () {
+                    alert("principal sign successfully deleted!");
+                    window.location = location.href;
+                }
+                del_success.onerror = function () {
+                    alert("principal sign deletion failed!");
+                    window.location = location.href;
+                }
+            }
+        }
+
+    });
+});
+// delete principal signature coding end
+
+// school logo upload coding start
+
+$(document).ready(function(){
+    $(".school-logo-input").on("change", function(){
+        let file = this.files[0];
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(){
-            let signature = this.result;
+            let school_logo = this.result;
             let db_name = sessionStorage.getItem("db_name");
             let database = window.indexedDB.open(db_name);
             database.onsuccess = function(){
@@ -427,15 +638,18 @@ $(document).ready(function () {
                 let check_data = access.get(db_name);
                 check_data.onsuccess = function(){
                     let data = this.result;
-                    data.director_signature = signature;
-                    let update_signature =  access.put(data);
-                    update_signature.onsuccess = function(){
+                    data.school_logo = school_logo;
+                    let update = access.put(data);
+                    update.onsuccess = function(){
                         window.location = location.href;
                     }
+                    update.onerror= function(){
+                        alert("updation failed!");
+                    }
                 }
+
             }
         }
     });
 });
-
-// upload director signature photo coding end
+// school logo upload coding start

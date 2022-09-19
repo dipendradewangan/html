@@ -123,7 +123,7 @@ else {
                 };
                 let object = idb.createObjectStore("about_school", { keyPath: "school_name" });
                 idb.createObjectStore("fee",{keyPath:"class_name"});
-                idb.createObjectStore("admission",{autoIncrement:true})
+                idb.createObjectStore("admission",{keyPath:"adm_no"})
                 object.add(data);
             }
         }
